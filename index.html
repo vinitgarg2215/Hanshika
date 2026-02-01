@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For Hanshika 💖</title>
+
+<style>
+body{
+  margin:0;
+  height:100vh;
+  background: linear-gradient(135deg,#ffd1dc,#ffe6f0);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-family:'Segoe UI',sans-serif;
+  overflow:hidden;
+}
+
+/* Start Screen */
+#startScreen{
+  position:absolute;
+  inset:0;
+  background: linear-gradient(135deg,#ff9a9e,#fad0c4);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  animation: fadeIn 1.5s ease;
+  z-index:10;
+}
+
+.startCard{
+  background: rgba(255,255,255,0.9);
+  padding:40px 50px;
+  border-radius:30px;
+  text-align:center;
+  box-shadow:0 0 40px rgba(255,0,100,0.3);
+  animation: popIn 1.5s ease;
+}
+
+.startBear{
+  font-size:90px;
+  animation: wave 3s infinite;
+}
+
+#startBtn{
+  margin-top:20px;
+  padding:12px 30px;
+  border:none;
+  border-radius:30px;
+  background:#ff3366;
+  color:white;
+  font-size:18px;
+  cursor:pointer;
+  animation: floatBtn 2s infinite;
+}
+
+/* Main Card */
+.card{
+  background:white;
+  padding:30px 40px;
+  border-radius:30px;
+  text-align:center;
+  box-shadow:0 0 30px rgba(255,0,100,0.3);
+  max-width:420px;
+  animation:smoothIn 2s ease;
+}
+
+h1{
+  color:#ff3366;
+  animation:glow 2s infinite alternate;
+}
+
+p{
+  font-size:18px;
+  color:#444;
+  min-height:70px;
+}
+
+/* Buttons */
+button{
+  margin:8px;
+  padding:10px 22px;
+  border:none;
+  border-radius:25px;
+  background:#ff3366;
+  color:white;
+  font-size:15px;
+  cursor:pointer;
+  transition:0.2s;
+}
+button:hover{
+  transform:scale(1.05);
+  background:#ff174f;
+}
+
+/* Hearts */
+.heart{
+  position:absolute;
+  color:#ff3366;
+  animation: float 7s linear infinite;
+}
+
+/* Animations */
+@keyframes float{
+  0%{transform:translateY(100vh);opacity:0;}
+  50%{opacity:1;}
+  100%{transform:translateY(-10vh);opacity:0;}
+}
+
+@keyframes smoothIn{
+  from{opacity:0;transform:translateY(40px) scale(0.9);}
+  to{opacity:1;transform:translateY(0) scale(1);}
+}
+
+@keyframes glow{
+  from{text-shadow:0 0 5px #ff9a9e;}
+  to{text-shadow:0 0 20px #ff3366;}
+}
+
+@keyframes fadeIn{
+  from{opacity:0;}
+  to{opacity:1;}
+}
+
+@keyframes popIn{
+  from{opacity:0;transform:scale(0.7);}
+  to{opacity:1;transform:scale(1);}
+}
+
+@keyframes wave{
+  0%{transform:rotate(0deg);}
+  50%{transform:rotate(5deg);}
+  100%{transform:rotate(0deg);}
+}
+
+@keyframes floatBtn{
+  0%{transform:translateY(0);}
+  50%{transform:translateY(-6px);}
+  100%{transform:translateY(0);}
+}
+</style>
+</head>
+
+<body>
+
+<!-- Start Screen -->
+<div id="startScreen">
+  <div class="startCard">
+    <div class="startBear">🧸</div>
+    <h2>For Hanshika 💖</h2>
+    <p>A tiny surprise is waiting for you…</p>
+    <button id="startBtn" onclick="startExperience()">Tap to Begin 💕</button>
+  </div>
+</div>
+
+<audio id="bgm" preload="auto">
+  <source src="udaarian.mp3" type="audio/mpeg">
+</audio>
+
+<div class="card">
+  <div class="startBear">🧸</div>
+  <h1>Hanshika 💖</h1>
+  <p id="text">A shy bear wants to say something...</p>
+
+  <div id="buttons" style="display:none;">
+    <button onclick="nextLine()">Next 💕</button>
+    <button onclick="surprise()">Surprise 🎁</button>
+    <button onclick="askHer()">Your Turn 😊</button>
+  </div>
+</div>
+
+<script>
+let i=0;
+
+const lines = [
+    "Hanshika, Aapko pta hee aapp naa bahutt acheee hoo ✨",
+    "Aapse baat karna din ka sabse part hee 💕",
+    "Aapp mera mood sirf apni awaaz se acha kar dete hoo 🥺",
+    "Agar happiness ka face hota, toh wo Aapka jaisa hota 😌",
+    "Ye page sirf isliye bana hai taaki Aapko yaad rahe… Aap Mere liye kitni special ho 💖",
+    "Aur haan… agar ye surprise pasand aaya ho, toh ek smile zaroor dena 😊"
+  ];
+
+
+function startExperience(){
+  document.getElementById("startScreen").style.display="none";
+  const song=document.getElementById("bgm");
+  song.currentTime=63;
+  song.volume=0;
+  song.play();
+
+  let vol=0;
+  const fade=setInterval(()=>{
+    if(vol<0.8){
+      vol+=0.05;
+      song.volume=vol;
+    } else clearInterval(fade);
+  },200);
+
+  document.getElementById("buttons").style.display="block";
+  nextLine();
+}
+
+function nextLine(){
+  if(i<lines.length){
+    typeWriter(lines[i]);
+    i++;
+  }
+}
+
+function typeWriter(text){
+  let j=0;
+  const box=document.getElementById("text");
+  box.innerHTML="";
+  const interval=setInterval(()=>{
+    if(j<text.length){
+      box.innerHTML+=text.charAt(j);
+      j++;
+    } else clearInterval(interval);
+  },35);
+}
+
+function surprise(){
+  typeWriter("Surpriseee 😍 Shy bear(me) Aapke liye bohot saare hugs bhej raha hai 🤗💖💖");
+}
+
+function askHer(){
+  typeWriter("kya ye cute surprise pasand aaya? iloveeee youuuu soooo muchhhh 😊🧸💕");
+}
+
+setInterval(()=>{
+  const heart=document.createElement("div");
+  heart.className="heart";
+  heart.innerText="❤";
+  heart.style.left=Math.random()*100+"vw";
+  heart.style.fontSize=Math.random()*20+15+"px";
+  document.body.appendChild(heart);
+  setTimeout(()=>heart.remove(),7000);
+},400);
+</script>
+
+</body>
+</html>
